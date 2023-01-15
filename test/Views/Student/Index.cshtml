@@ -1,0 +1,55 @@
+﻿@model IEnumerable<test.Models.Student>; //ienum เพื่อดึงค่าหลายค่า
+@{
+    ViewData["Title"] = "First page";
+}
+
+@if (Model.Count()>0)
+{
+    <h1 class="text-center mt-3 mb-3">Score of computer</h1>
+    <table class="table table-dark">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Score</th>
+                <th>Edit</th>
+                <th>Del</th>
+                <th>Result</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var student in Model)
+            {
+                <tr>
+                    <td> @student.Id</td>
+                    <td>@student.Name</td>
+                    <td>@student.Score</td>
+                    <td><a class="btn btn-warning" asp-controller="Student" asp-action="Edit" asp-route-id="@student.Id">Edit</a></td>
+                    <td>
+                        <a class="btn btn-danger" asp-controller="Student" asp-action="Del" asp-route-id="@student.Id"
+                   onclick="return confirm('Confirm to Delete @student.Name or not?')">Del</a>
+                    </td>
+                    @if (student.Score >= 50)
+                    {
+                        <td><strong class="text-success">Pass</strong></td>
+                    }
+                    else
+                    {
+                        <td><strong class="text-danger">Not Pass</strong></td>
+                    }
+
+
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+else
+{
+    <div class="alert alert-secondary">NO data!</div>
+    
+}
+
+
+
